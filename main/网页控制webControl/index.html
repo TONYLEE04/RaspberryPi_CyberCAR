@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* 使用CSS来美化按钮 */
+        button {
+            width: 100px;
+            height: 100px;
+            font-size: 20px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>TONY'S Pi SmartCar WEB Control</h1>
+<!-- 使用<button>元素来创建五个按钮 -->
+<button id="forward">Forward</button>
+<button id="backward">Backward</button>
+<button id="left">Left</button>
+<button id="right">Right</button>
+<button id="stop">STOP</button>
+
+<script>
+    // 使用JavaScript来添加按钮的点击事件处理函数
+    // 获取五个按钮元素
+    var forward = document.getElementById("forward");
+    var backward = document.getElementById("backward");
+    var left = document.getElementById("left");
+    var right = document.getElementById("right");
+    var stop = document.getElementById("stop");
+
+    // 定义一个发送请求的函数，参数为请求的URL
+    function sendRequest(url) {
+        // 创建一个XMLHttpRequest对象
+        var xhr = new XMLHttpRequest();
+        // 打开一个GET请求，指定URL
+        xhr.open("GET", url);
+        // 发送请求
+        xhr.send();
+        // 注册一个响应处理函数，当响应到达时执行
+        xhr.onload = function() {
+            // 如果响应状态码为200，表示成功
+            if (xhr.status == 200) {
+                // 在控制台打印响应内容
+                console.log(xhr.responseText);
+            } else {
+                // 否则，表示失败，打印错误信息
+                console.error(xhr.statusText);
+            }
+        };
+    }
+
+    // 给每个按钮添加点击事件处理函数，调用sendRequest函数，传入相应的URL
+    forward.onclick = function() {
+        sendRequest("/forward");
+    };
+
+    backward.onclick = function() {
+        sendRequest("/backward");
+    };
+
+    left.onclick = function() {
+        sendRequest("/left");
+    };
+
+    right.onclick = function() {
+        sendRequest("/right");
+    };
+
+    stop.onclick = function() {
+        sendRequest("/stop");
+    };
+</script>
+</body>
+</html>
